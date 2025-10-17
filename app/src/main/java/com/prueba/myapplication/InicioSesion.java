@@ -1,22 +1,31 @@
 package com.prueba.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.common.SignInButton;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.prueba.myapplication.MainActivity;
+
+// ...
 
 public class InicioSesion extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private boolean passwordVisible = false;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;  // Código de solicitud para Google Sign-In
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,68 +34,55 @@ public class InicioSesion extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // 🔹 Campos
-        EditText txtCorreo = findViewById(R.id.etCorreo);
-        EditText txtPass = findViewById(R.id.etContrasena);
-        ImageView ivTogglePass = findViewById(R.id.ivTogglePass);
+        // Configuración de Google Sign-In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))  // ID de cliente web
+                .requestEmail()
+                .build();
 
-        // 🔹 Botón Iniciar Sesión
-        Button button = findViewById(R.id.btnLogin);
-        button.setOnClickListener(view -> {
-            String correo = txtCorreo.getText().toString().trim();
-            String pass = txtPass.getText().toString().trim();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-            if (correo.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Complete ambos campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            ingresar(correo, pass);
-        });
-
-        // 🔹 Texto para ir al registro
-        TextView tvRegistro = findViewById(R.id.tvRegistro);
-        tvRegistro.setOnClickListener(v -> {
-            Intent intent = new Intent(InicioSesion.this, Registro.class);
-            startActivity(intent);
-        });
-
-        // 🔹 Candado (mostrar / ocultar contraseña)
-        ivTogglePass.setOnClickListener(v -> {
-            if (passwordVisible) {
-                // Ocultar contraseña
-                txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ivTogglePass.setImageResource(R.drawable.ic_visibility_off);
-            } else {
-                // Mostrar contraseña
-                txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ivTogglePass.setImageResource(R.drawable.ic_visibility);
-            }
-            txtPass.setSelection(txtPass.getText().length()); // mantener cursor al final
-            passwordVisible = !passwordVisible;
-        });
+        // Obtener y configurar el botón de Google Sign-In
+        SignInButton googleSignInButton = findViewById(R.id.btnGoogleSignIn);
+        googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
+        googleSignInButton.setOnClickListener(view -> signInWithGoogle());
     }
 
-    // 🔹 Iniciar sesión con Firebase
-    public void ingresar(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
+    // Método para iniciar sesión con Google
+    private void signInWithGoogle() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    // Manejar el resultado de la autenticación de Google
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                Toast.makeText(this, "Error de autenticación con Google", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    // Autenticación con Firebase usando Google
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(this, "Bienvenido, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                        // Redirigir a la pantalla principal
                         startActivity(new Intent(InicioSesion.this, MainActivity.class));
                         finish();
                     } else {
-                        Toast.makeText(this, "Credenciales incorrectas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error al autenticar", Toast.LENGTH_SHORT).show();
                     }
                 });
-    }
-
-    // 🔹 Si ya está logueado, pasa directo al Main
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(InicioSesion.this, MainActivity.class));
-            finish();
-        }
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">My Application</string>
+
+    <string name="default_web_client_id">605913432951-o8u7i1rj8ilpn4nml40f96g3mn9dt4qa.apps.googleusercontent.com</string>
 </resources>

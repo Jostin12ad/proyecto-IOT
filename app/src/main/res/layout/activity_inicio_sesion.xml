@@ -71,7 +71,7 @@
             android:padding="6dp"
             android:src="@drawable/ic_visibility_off"
             android:contentDescription="Mostrar u ocultar contraseña"
-            android:tint="@android:color/white" />
+            app:tint="@android:color/white" />
     </LinearLayout>
 
     <!-- Botón de iniciar sesión -->
@@ -91,7 +91,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lyPassContainer" />
 
+    <!-- Botón de Google -->
+
+
     <!-- Texto registrarse -->
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btnGoogleSignIn"
+        android:layout_width="112dp"
+        android:layout_height="51dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
     <TextView
         android:id="@+id/tvRegistro"
         android:layout_width="wrap_content"

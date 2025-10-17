@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "833658833773",
-    "project_id": "proyecto-iot-3c998",
-    "storage_bucket": "proyecto-iot-3c998.firebasestorage.app"
+    "project_number": "605913432951",
+    "project_id": "proyecto-iot-2025",
+    "storage_bucket": "proyecto-iot-2025.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:833658833773:android:7542107a9fb722f8db6864",
+        "mobilesdk_app_id": "1:605913432951:android:a567cf612dac86e84c1772",
         "android_client_info": {
           "package_name": "com.prueba.myapplication"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCqlSnOqfKB7IAvb7CjaPWIePSGKgyEKeY"
+          "current_key": "AIzaSyDk7Fuz4ls8vBwesZpFc10bot8N0Cff-Kk"
         }
       ],
       "services": {
