@@ -5,54 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2B2B2B"
-    tools:context=".InicioSesion">
+    tools:context=".Registro">
 
     <!-- Título -->
     <TextView
-        android:id="@+id/tvTitulo"
+        android:id="@+id/tvTituloRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Iniciar Sesión"
+        android:text="Crear cuenta"
         android:textColor="@android:color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="100dp" />
+        android:layout_marginTop="80dp" />
 
     <!-- Campo de correo -->
     <EditText
-        android:id="@+id/etCorreo"
+        android:id="@+id/etCorreoRegistro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#FFFFFF"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColor="@android:color/white"
         android:textColorHint="#AAAAAA"
-        android:backgroundTint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="40dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloRegistro" />
 
-    <!-- Campo de contraseña + icono -->
+    <!-- Campo de contraseña con icono -->
     <LinearLayout
-        android:id="@+id/lyPassContainer"
+        android:id="@+id/layoutPass1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:backgroundTint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@id/etCorreo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="40dp">
+        app:layout_constraintTop_toBottomOf="@id/etCorreoRegistro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <EditText
-            android:id="@+id/etContrasena"
+            android:id="@+id/etContrasenaRegistro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -64,7 +63,7 @@
             android:backgroundTint="#FFFFFF" />
 
         <ImageView
-            android:id="@+id/ivTogglePass"
+            android:id="@+id/ivTogglePass1"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_gravity="center_vertical"
@@ -74,35 +73,70 @@
             android:tint="@android:color/white" />
     </LinearLayout>
 
-    <!-- Botón de iniciar sesión -->
+    <!-- Campo de confirmar contraseña con icono -->
+    <LinearLayout
+        android:id="@+id/layoutPass2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutPass1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <EditText
+            android:id="@+id/etConfirmarContrasena"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Confirmar contraseña"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="#AAAAAA"
+            android:backgroundTint="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/ivTogglePass2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:padding="6dp"
+            android:src="@drawable/ic_visibility_off"
+            android:contentDescription="Mostrar u ocultar contraseña"
+            android:tint="@android:color/white" />
+    </LinearLayout>
+
+    <!-- Botón de registrarse -->
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegistrar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:backgroundTint="#00C853"
         android:padding="12dp"
-        android:text="Iniciar sesión"
+        android:text="Registrarse"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:cornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lyPassContainer" />
+        app:layout_constraintTop_toBottomOf="@id/layoutPass2" />
 
-    <!-- Texto registrarse -->
+    <!-- Texto para volver al login -->
     <TextView
-        android:id="@+id/tvRegistro"
+        android:id="@+id/tvIrLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:clickable="true"
-        android:text="¿No tienes cuenta? Regístrate aquí"
+        android:text="¿Ya tienes cuenta? Inicia sesión"
         android:textColor="#80FFFFFF"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@id/btnRegistrar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

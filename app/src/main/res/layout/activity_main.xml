@@ -49,15 +49,14 @@
                         android:id="@+id/Corazon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_heart"
-                        app:srcCompat="@drawable/heart_10507456"
+                        app:srcCompat="@drawable/ic_heart"
                         app:tint="#FF0000" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Sensor del corazon"
+                        android:text="Sensor del corazón"
                         android:textColor="@android:color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -72,8 +71,8 @@
                 <TextView
                     android:id="@+id/tvPulso"
                     android:layout_width="match_parent"
-                    android:layout_height="51dp" />
-
+                    android:layout_height="51dp"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -102,9 +101,8 @@
                         android:id="@+id/GPS"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_location"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/gps_10094068" />
+                        app:srcCompat="@drawable/ic_location"
+                        app:tint="@android:color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -119,12 +117,12 @@
                 <TextView
                     android:id="@+id/tvGps"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp" />
-
+                    android:layout_height="41dp"
+                    android:textColor="@android:color/white" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- CARD OXIMETRO -->
+        <!-- CARD OXÍMETRO -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,14 +147,13 @@
                         android:id="@+id/Oximetro"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_oximeter"
-                        android:tint="@color/black"
-                        app:srcCompat="@drawable/oxygen_45844" />
+                        app:srcCompat="@drawable/ic_oximeter"
+                        app:tint="@android:color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Oximeter"
+                        android:text="Oxímetro"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="18sp"
@@ -220,28 +217,45 @@
                         android:id="@+id/Gyros"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_gyro"
-                        android:tint="@android:color/white" />
+                        app:srcCompat="@drawable/ic_gyro"
+                        app:tint="@android:color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gyroscope"
+                        android:text="Giroscopio"
                         android:textColor="@android:color/white"
                         android:textStyle="bold"
                         android:textSize="18sp"
                         android:layout_marginStart="8dp" />
                 </LinearLayout>
 
+                <!-- Imagen de estado del giroscopio -->
                 <ImageView
                     android:id="@+id/imgGyro"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="8dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/gyro_placeholder" />
+                    />
             </LinearLayout>
+            <!-- BOTÓN CERRAR SESIÓN -->
+
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#00C853"
+            android:elevation="6dp"
+            android:padding="12dp"
+            android:text="Cerrar sesión"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:cornerRadius="25dp" />
 
     </LinearLayout>
 </ScrollView>
